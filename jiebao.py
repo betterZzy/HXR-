@@ -1,17 +1,25 @@
+import os
 import jieba
 import zhon.hanzi
 import collections
 import nltk
 from nltk.corpus import stopwords
+import tkinter as tk
+from tkinter import filedialog
+
+
 
 #nltk.download('stopwords')
 punc = zhon.hanzi.punctuation  #要去除的中文标点符号
-baidu_stopwords = stopwords.words('D:\Soft\SoftInstall\Microsoft VS Code\pythonPack\cn_stopwords.txt') #导入停用词表
+baidu_stopwords = stopwords.words(os.path.abspath('.\dict\cn_stopwords.txt')) #导入停用词表
+jieba.load_userdict('dict\教育论文分析字典.txt')    #导入自定义字典
 
-with open('D:\硕士毕业论文\新建文本文档.txt',encoding="utf-8") as fp:
+root = Tkinter.Tk()
+root.withdraw()
+file_path = filedialog.askopenfilename()    #选择需要统计词频的文件
+with open(file_path,encoding="utf-8") as fp:
     text = fp.read()
 
-jieba.load_userdict('D:\Soft\SoftInstall\Microsoft VS Code\pythonPack\dict\教育论文分析字典.txt')
 ls = jieba.lcut(text,cut_all=True)
 
 newls = []
